@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
 {
@@ -6,7 +7,8 @@ public class Rocket : MonoBehaviour
     [SerializeField] float mainThrust = 100f;
     Rigidbody rb;
     AudioSource audioSource;
-    
+    enum State { alive, dying, load };
+    State state = State.alive;
     
     // Start is called before the first frame update
     void Start()
@@ -18,9 +20,12 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Thrust();
-        Rotation();
-
+        
+        if (state == State.alive)
+        {
+            Thrust();
+            Rotation();
+        }
     }
 
  
@@ -62,18 +67,38 @@ public class Rocket : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
+
+        if (state != State.alive){return;}
+
         switch (col.gameObject.tag)
         {
             case "Friendly":
                 print("Safe");
                 break;
+            case "finish":
+                state = State.load;
+                print("hit finish");
+                Invoke("LoadNextLevel", 1f); //parameterise time
+                break;
             case "Bad":
                 print("Dead");
+                state = State.dying;
+                Invoke("LoadFirstLevel", 2f);
                 break;
             default:
                 print("Nothing to see here.");
                 break;
         }
+    }
+
+    void LoadNextLevel()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    void LoadFirstLevel()
+    {
+        SceneManager.LoadScene(0);
     }
 }
 
