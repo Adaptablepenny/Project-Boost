@@ -632,7 +632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementVector: {x: 10, y: 0, z: 0}
-  period: 5
+  period: 10
 --- !u!1 &1888753589
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,11 +1018,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5765103034965234169, guid: 9991c1cac85fefc46aba4f78e7c218f3,
-        type: 3}
-      propertyPath: m_Name
-      value: NoseSpotLight
-      objectReference: {fileID: 0}
     - target: {fileID: 4379904182170426332, guid: 9991c1cac85fefc46aba4f78e7c218f3,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -1037,6 +1032,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RocketBodySpotLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 5765103034965234169, guid: 9991c1cac85fefc46aba4f78e7c218f3,
+        type: 3}
+      propertyPath: m_Name
+      value: NoseSpotLight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9991c1cac85fefc46aba4f78e7c218f3, type: 3}
