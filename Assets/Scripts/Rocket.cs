@@ -5,6 +5,16 @@ public class Rocket : MonoBehaviour
 {
     [SerializeField]  float rotationThrust = 100f;
     [SerializeField] float mainThrust = 100f;
+    [SerializeField] float LoadLevelDelay = 2f;
+
+    [SerializeField] AudioClip mainEngine;
+    [SerializeField] AudioClip winJingle;
+    [SerializeField] AudioClip deathAudio;
+
+    [SerializeField] ParticleSystem deathExplosion;
+    [SerializeField] ParticleSystem winParticles;
+    [SerializeField] ParticleSystem engineThrust;
+
     Rigidbody rb;
     AudioSource audioSource;
     enum State { alive, dying, load };
@@ -23,30 +33,38 @@ public class Rocket : MonoBehaviour
         
         if (state == State.alive)
         {
-            Thrust();
-            Rotation();
+            RespondToThrustInput();
+            RespondToRotateInput();
         }
     }
 
  
-    void Thrust()
+    void RespondToThrustInput()
     {
         float thrustSpeed = mainThrust * Time.deltaTime;
         if (Input.GetKey(KeyCode.Space))//Thrust
         {
-            rb.AddRelativeForce(Vector3.up * thrustSpeed);
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
+            ApplyThrust(thrustSpeed);
         }
         else
         {
+            engineThrust.Stop();
             audioSource.Stop();
         }
     }
 
-    void Rotation()
+    void ApplyThrust(float thrustSpeed)
+    {
+        rb.AddRelativeForce(Vector3.up * thrustSpeed);
+        if (!audioSource.isPlaying)
+        {
+            
+            audioSource.PlayOneShot(mainEngine);
+        }
+        engineThrust.Play();
+    }
+
+    void RespondToRotateInput()
     {
         
         float rotationSpeed = rotationThrust * Time.deltaTime;
@@ -73,17 +91,12 @@ public class Rocket : MonoBehaviour
         switch (col.gameObject.tag)
         {
             case "Friendly":
-                print("Safe");
                 break;
             case "finish":
-                state = State.load;
-                print("hit finish");
-                Invoke("LoadNextLevel", 1f); //parameterise time
+                StartWin();
                 break;
             case "Bad":
-                print("Dead");
-                state = State.dying;
-                Invoke("LoadFirstLevel", 2f);
+                StartDeath();
                 break;
             default:
                 print("Nothing to see here.");
@@ -91,8 +104,26 @@ public class Rocket : MonoBehaviour
         }
     }
 
+    private void StartDeath()
+    {
+        deathExplosion.Play();
+        state = State.dying;
+        audioSource.Stop();
+        audioSource.PlayOneShot(deathAudio);
+        Invoke("LoadFirstLevel", LoadLevelDelay);
+    }
+
+    private void StartWin()
+    {
+        winParticles.Play();
+        state = State.load;
+        audioSource.PlayOneShot(winJingle);
+        Invoke("LoadNextLevel", LoadLevelDelay); //parameterise time
+    }
+
     void LoadNextLevel()
     {
+        
         SceneManager.LoadScene(1);
     }
 
