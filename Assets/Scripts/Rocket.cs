@@ -40,6 +40,7 @@ public class Rocket : MonoBehaviour
             {
                 RespondToDebug();//debug actions
             }
+            RespondToQuit();
             
         }
     }
@@ -57,6 +58,14 @@ public class Rocket : MonoBehaviour
 
     }
 
+    void RespondToQuit()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
  
     void RespondToThrustInput()
     {
@@ -67,9 +76,14 @@ public class Rocket : MonoBehaviour
         }
         else
         {
-            engineThrust.Stop();
-            audioSource.Stop();
+            StopThrust();
         }
+    }
+
+    private void StopThrust()
+    {
+        engineThrust.Stop();
+        audioSource.Stop();
     }
 
     void ApplyThrust(float thrustSpeed)
@@ -87,18 +101,22 @@ public class Rocket : MonoBehaviour
     {
         
         float rotationSpeed = rotationThrust * Time.deltaTime;
-        rb.freezeRotation = true;//take manual control of rotation
+        
         if (Input.GetKey(KeyCode.A))//Rotate Left
         {
-            
-            transform.Rotate(Vector3.forward * rotationSpeed);
-
+            ApplyRotateThrust(rotationSpeed);
         }
         else if (Input.GetKey(KeyCode.D))// Rotate Right
         {
-
-            transform.Rotate(Vector3.back * rotationSpeed);
+            ApplyRotateThrust(-rotationSpeed);
         }
+        
+    }
+
+    private void ApplyRotateThrust(float rotationSpeed)
+    {
+        rb.freezeRotation = true;//take manual control of rotation
+        transform.Rotate(Vector3.forward * rotationSpeed);
         rb.freezeRotation = false;// resume physics control
     }
 
@@ -129,7 +147,7 @@ public class Rocket : MonoBehaviour
         state = State.dying;
         audioSource.Stop();
         audioSource.PlayOneShot(deathAudio);
-        Invoke("LoadFirstLevel", LoadLevelDelay);
+        Invoke("ReloadLevel", LoadLevelDelay);
     }
 
     private void StartWin()
@@ -142,13 +160,27 @@ public class Rocket : MonoBehaviour
 
     void LoadNextLevel()
     {
+        int currScene = SceneManager.GetActiveScene().buildIndex;
+        int nextScene = currScene + 1;
+
+        if (nextScene > 4)
+        {
+            Application.Quit();
+            print("Quitting");
+        }
+        else
+        {
+           SceneManager.LoadScene(nextScene);
+        }
         
-        SceneManager.LoadScene(1);
+        
+        
     }
 
-    void LoadFirstLevel()
+    void ReloadLevel()
     {
-        SceneManager.LoadScene(0);
+        int currScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currScene);
     }
 }
 
