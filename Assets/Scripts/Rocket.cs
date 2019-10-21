@@ -17,6 +17,7 @@ public class Rocket : MonoBehaviour
 
     Rigidbody rb;
     AudioSource audioSource;
+    ScoreBoard scoreText;
     enum State { alive, dying, load };
     State state = State.alive;
     bool collisionsDisabled = false;
@@ -26,6 +27,7 @@ public class Rocket : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
+        scoreText = GetComponent<ScoreBoard>();
     }
 
     // Update is called once per frame
@@ -170,7 +172,7 @@ public class Rocket : MonoBehaviour
         }
         else
         {
-           SceneManager.LoadScene(nextScene);
+            SceneManager.LoadScene(nextScene);
         }
         
         
