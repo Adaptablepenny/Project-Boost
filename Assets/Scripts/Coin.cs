@@ -32,7 +32,7 @@ public class Coin : MonoBehaviour
         PickupCoin();
     }
 
-    private void PickupCoin()
+    private void PickupCoin()//Limits the score by detecting only one trigger
     {
         coinTouch += 1;
         if (coinTouch == 1)
@@ -42,11 +42,7 @@ public class Coin : MonoBehaviour
             scoreBoard.AddScore(score);
             Destroy(gameObject);
         }
-        else
-        {
-            return;
-        }
-    }//Limits the score by detecting only one trigger
+    }
 
     void CoinRotation()
     {
