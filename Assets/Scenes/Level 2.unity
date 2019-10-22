@@ -506,6 +506,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Directional Light
       objectReference: {fileID: 0}
+    - target: {fileID: 1572114730432413334, guid: 605eb973165bc49418a4511cb4601cb1,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 1572114730432413335, guid: 605eb973165bc49418a4511cb4601cb1,
         type: 3}
       propertyPath: m_RootOrder
@@ -560,11 +565,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9681503
-      objectReference: {fileID: 0}
-    - target: {fileID: 1572114730432413334, guid: 605eb973165bc49418a4511cb4601cb1,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 605eb973165bc49418a4511cb4601cb1, type: 3}
@@ -815,7 +815,7 @@ PrefabInstance:
     - target: {fileID: 3130319167422880327, guid: 968ad03123209f74b9cf1fde3749bddc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16.566
+      value: 18.13
       objectReference: {fileID: 0}
     - target: {fileID: 3130319167422880327, guid: 968ad03123209f74b9cf1fde3749bddc,
         type: 3}

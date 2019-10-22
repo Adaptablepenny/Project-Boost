@@ -5,13 +5,18 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     int score = 1;
+    int coinTouch = 0;//How many trigger events are occuring
 
+    
     [SerializeField] float speed = 10f;
 
+    [SerializeField] Transform parent;
+    [SerializeField] GameObject coinSound;
     ScoreBoard scoreBoard;
     // Start is called before the first frame update
     void Start()
     {
+        
         scoreBoard = FindObjectOfType<ScoreBoard>();
     }
 
@@ -23,9 +28,25 @@ public class Coin : MonoBehaviour
 
     private void OnTriggerEnter(Collider coin)
     {
-        scoreBoard.AddScore(score);
-        Destroy(gameObject);
+        
+        PickupCoin();
     }
+
+    private void PickupCoin()
+    {
+        coinTouch += 1;
+        if (coinTouch == 1)
+        {
+            GameObject fx = Instantiate(coinSound, transform.position, Quaternion.identity);
+            fx.transform.parent = parent;
+            scoreBoard.AddScore(score);
+            Destroy(gameObject);
+        }
+        else
+        {
+            return;
+        }
+    }//Limits the score by detecting only one trigger
 
     void CoinRotation()
     {

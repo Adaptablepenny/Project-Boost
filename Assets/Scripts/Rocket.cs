@@ -57,7 +57,10 @@ public class Rocket : MonoBehaviour
         {
             collisionsDisabled = !collisionsDisabled; //enables disbales collision
         }
-
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            ReloadLevel();
+        }
     }
 
     void RespondToQuit()
@@ -165,7 +168,7 @@ public class Rocket : MonoBehaviour
         int currScene = SceneManager.GetActiveScene().buildIndex;
         int nextScene = currScene + 1;
 
-        if (nextScene > 4)
+        if (nextScene > 5)
         {
             Application.Quit();
             print("Quitting");
@@ -183,6 +186,19 @@ public class Rocket : MonoBehaviour
     {
         int currScene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currScene);
+    }
+
+    public void ToggleGravity() //is this useless? //todo check to see if its useless
+    {
+        /*if (rb.useGravity == true)
+        {
+            rb.useGravity = false;
+        }
+        else
+        {
+            rb.useGravity = true;
+        }*/
+        rb.useGravity = false;
     }
 }
 
