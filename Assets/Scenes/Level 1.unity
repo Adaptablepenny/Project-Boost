@@ -415,6 +415,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScoreBoard
       objectReference: {fileID: 0}
+    - target: {fileID: 1774538369973396779, guid: ecfc3473aabdbdc4692730ac9313b696,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1774538369973396775, guid: ecfc3473aabdbdc4692730ac9313b696,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -523,12 +528,12 @@ PrefabInstance:
     - target: {fileID: 1774538369822563322, guid: ecfc3473aabdbdc4692730ac9313b696,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -2.9400635
+      value: 56.299927
       objectReference: {fileID: 0}
     - target: {fileID: 1774538369822563322, guid: ecfc3473aabdbdc4692730ac9313b696,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3.829956
+      value: -62.44995
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecfc3473aabdbdc4692730ac9313b696, type: 3}
